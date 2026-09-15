@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aplikasi Web LKPD - Aktivitas 1.3 Koding & Kecerdasan Artifisial</title>
+  <style>
+    :root {
+      --primary: #0d9488;
+      --primary-dark: #0f766e;
+      --primary-light: #ccfbf1;
+      --primary-subtle: #f0fdfa;
+      --secondary: #2563eb;
+      --secondary-light: #dbeafe;
+      --dark: #0f172a;
+      --gray-dark: #334155;
+      --gray: #64748b;
+      --gray-light: #e2e8f0;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --accent: #f59e0b;
+      --success: #10b981;
+      --radius: 10px;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--dark);
+      line-height: 1.5;
+      padding-bottom: 60px;
+    }
+
+    /* Header Navigasi */
+    header {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      color: white;
+      padding: 16px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(15, 118, 110, 0.25);
+    }
+    .header-container {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-icon {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 20px;
+    }
+    .brand-title h1 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+    }
+    .brand-title p {
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+    .header-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    /* Tombol-tombol Utama */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+      outline: none;
+    }
+    .btn-light {
+      background: white;
+      color: var(--primary-dark);
+    }
+    .btn-light:hover {
+      background: var(--primary-light);
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid white;
+      color: white;
+    }
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+    .btn-outline-dark {
+      background: transparent;
+      border: 1px solid var(--gray-light);
+      color: var(--gray-dark);
+    }
+    .btn-outline-dark:hover {
+      background: var(--gray-light);
+    }
+    .btn-sm {
+      padding: 5px 10px;
+      font-size: 0.78rem;
+    }
+    .btn-danger {
+      background: #ef4444;
+      color: white;
+    }
+    .btn-danger:hover {
+      background: #dc2626;
+    }
+
+    /* Container Konten */
+    .main-wrapper {
+      max-width: 1080px;
+      margin: 24px auto;
+      padding: 0 16px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    /* Kartu Card */
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--gray-light);
+      padding: 24px;
+      margin-bottom: 20px;
+      transition: box-shadow 0.2s;
+    }
+    .card:hover {
+      box-shadow: var(--shadow-lg);
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      border-bottom: 2px solid var(--primary-subtle);
+      padding-bottom: 10px;
+    }
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .badge {
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+    .badge-teal { background: var(--primary-light); color: var(--primary-dark); }
+    .badge-blue { background: var(--secondary-light); color: var(--secondary); }
+
+    /* Banner Aktivitas Buku */
+    .activity-hero {
+      background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
+      color: white;
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: var(--shadow);
+    }
+    .activity-hero-icon {
+      font-size: 36px;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 12px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .activity-hero-content h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .activity-hero-content p {
+      font-size: 0.95rem;
+      opacity: 0.95;
+    }
+
+    /* Checklist Petunjuk Kerja */
+    .steps-box {
+      background: #eff6ff;
+      border: 1.5px solid #bfdbfe;
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin-top: 14px;
+    }
+    .steps-box h3 {
+      font-size: 0.95rem;
+      color: #1e40af;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .steps-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: #1e3a8a;
+    }
+    .step-item input[type="checkbox"] {
+      margin-top: 3px;
+      accent-color: var(--primary);
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    /* Grid Form */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .form-group {
+      margin-bottom: 14px;
+    }
+    .form-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--gray-dark);
+      margin-bottom: 6px;
+    }
+    .form-control {
+      width: 100%;
+      padding: 9px 12px;
+      font-size: 0.88rem;
+      border: 1px solid var(--gray-light);
+      border-radius: 6px;
+      background: #ffffff;
+      color: var(--dark);
+      transition: all 0.2s;
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+    }
+    textarea.form-control {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    /* Radio Group */
+    .radio-group {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+    .radio-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+    .radio-label input {
+      accent-color: var(--primary);
+    }
+
+    /* Dynamic Table for AI Features */
+    .ai-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 0.85rem;
+    }
+    .ai-table th, .ai-table td {
+      border: 1px solid var(--gray-light);
+      padding: 10px 12px;
+      text-align: left;
+    }
+    .ai-table th {
+      background: var(--primary-subtle);
+      color: var(--primary-dark);
+      font-weight: 700;
+    }
+    .ai-table tr:hover {
+      background: #fafafa;
+    }
+
+    /* Before-After Interactive Area */
+    .media-compare-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 12px;
+    }
+    @media (max-width: 720px) {
+      .media-compare-container {
+        grid-template-columns: 1fr;
+      }
+    }
+    .upload-box {
+      border: 2px dashed #94a3b8;
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+      background: #fdfdfd;
+      transition: all 0.2s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 180px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .upload-box:hover {
+      border-color: var(--primary);
+      background: var(--primary-subtle);
+    }
+    .upload-box.has-file {
+      border-style: solid;
+      border-color: var(--primary);
+      padding: 12px;
+      background: #ffffff;
+    }
+    .preview-media {
+      max-width: 100%;
+      max-height: 240px;
+      border-radius: 6px;
+      object-fit: contain;
+      margin-top: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 15;
+    }
+    .file-input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+      z-index: 10;
+      -webkit-appearance: none;
+    }
+    .upload-box.has-file .file-input {
+      display: none;
+    }
+    .file-meta-badge {
+      font-size: 0.75rem;
+      color: var(--gray);
+      margin-top: 6px;
+      background: var(--primary-subtle);
+      border: 1px solid var(--primary-light);
+      padding: 2px 8px;
+      border-radius: 4px;
+      z-index: 15;
+      position: relative;
+      word-break: break-all;
+    }
+    .btn-clear-media {
+      margin-top: 8px;
+      z-index: 20;
+      position: relative;
+    }
+
+    /* Reflection Card */
+    .reflection-item {
+      background: #fdfefe;
+      border: 1px solid #e2e8f0;
+      border-left: 4px solid var(--primary);
+      border-radius: 6px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+    }
+    .reflection-item h4 {
+      font-size: 0.9rem;
+      color: var(--dark);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    .reflection-hint {
+      font-size: 0.78rem;
+      color: var(--gray);
+      margin-bottom: 8px;
+      font-style: italic;
+    }
+
+
+    /* Interactive AI Eraser Simulator (Bonus Lab) */
+    .simulator-container {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 16px;
+    }
+    .canvas-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto 12px auto;
+      background: #334155;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+    }
+    canvas#eraserCanvas {
+      display: block;
+      width: 100%;
+      height: 260px;
+      cursor: crosshair;
+      touch-action: none;
+    }
+    .sim-controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* Autosave toast notification */
+    #toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--dark);
+      color: white;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 999;
+    }
+    #toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Cetak & Print Layout */
+    @media print {
+      header, .header-actions, .steps-box, .sim-controls, .simulator-container, .btn, #toast, .upload-box p {
+        display: none !important;
+      }
+      body {
+        background: white;
+        padding: 0;
+      }
+      .main-wrapper {
+        margin: 0;
+        padding: 0;
+        max-width: 100%;
+      }
+      .card {
+        box-shadow: none;
+        border: 1px solid #ccc;
+        page-break-inside: avoid;
+        margin-bottom: 12px;
+        padding: 14px;
+      }
+      .activity-hero {
+        background: #0f766e !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color: white !important;
+        padding: 10px 16px;
+      }
+      .preview-media {
+        max-height: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <header>
+    <div class="header-container">
+      <div class="brand-title">
+        <div class="brand-icon">⚙️ 💻</div>
+        <div>
+          <h1>LKPD DIGITAL &bull; KODING & KECERDASAN ARTIFISIAL</h1>
+          <p>Aktivitas 1.3: Menyunting Gambar dan Video Digital dengan KA</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-outline" onclick="resetForm()">🔄 Reset</button>
+        <button class="btn btn-outline" onclick="exportDataJSON()">💾 Ekspor Data</button>
+        <button class="btn btn-light" onclick="window.print()">🖨️ Cetak / Simpan PDF</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-wrapper">
+
+    <!-- Hero Aktivitas 1.3 (Persis Gambar Buku) -->
+    <div class="activity-hero">
+      <div class="activity-hero-icon">⚙️ 💻</div>
+      <div class="activity-hero-content">
+        <span class="badge badge-teal" style="background: rgba(255,255,255,0.25); color: white; margin-bottom: 4px; display: inline-block;">
+          Kurikulum Merdeka &bull; Fase D / E (SMP / SMA)
+        </span>
+        <h2>Aktivitas 1.3</h2>
+        <p>Menyunting Gambar dan Video Digital dengan KA (Aktivitas Individu)</p>
+      </div>
+    </div>
+
+    <!-- Checklist Langkah Kerja -->
+    <div class="steps-box">
+      <h3>📋 Alur Pengerjaan Proyek (Centang setelah selesai):</h3>
+      <ul class="steps-list">
+        <li class="step-item">
+          <input type="checkbox" id="stepA" onchange="updateProgress()">
+          <label for="stepA"><strong>a.</strong> Mengambil 1 foto atau video pendek (maksimal 1 menit) dari dokumentasi kegiatan di sekolah.</label>
+        </li>
+        <li class="step-item">
+          <input type="checkbox" id="stepB" onchange="updateProgress()">
+          <label for="stepB"><strong>b.</strong> Menggunakan alat berbasis KA (<strong>Canva</strong> atau <strong>Kapwing</strong>) untuk menambah teks, efek visual, atau menghilangkan objek.</label>
+        </li>
+        <li class="step-item">
+          <input type="checkbox" id="stepC" onchange="updateProgress()">
+          <label for="stepC"><strong>c.</strong> Mengunggah hasil kerja ke platform yang disepakati (Google Classroom / Drive / LMS) dan melampirkan link.</label>
+        </li>
+        <li class="step-item">
+          <input type="checkbox" id="stepD" onchange="updateProgress()">
+          <label for="stepD"><strong>d.</strong> Melakukan analisis refleksi bagaimana KA membantu serta bagian apa yang masih perlu disempurnakan secara manual untuk presentasi.</label>
+        </li>
+      </ul>
+      <div style="margin-top: 10px; font-size: 0.8rem; color: #1e40af; font-weight: 600;" id="progressText">
+        Progres: 0 / 4 Langkah Selesai
+      </div>
+    </div>
+
+    <!-- Card 1: Data Identitas Siswa -->
+    <section class="card">
+      <div class="card-header">
+        <h3 class="card-title">👤 Identitas Peserta Didik</h3>
+        <span class="badge badge-teal">Wajib Diisi</span>
+      </div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label" for="studentName">Nama Lengkap</label>
+          <input type="text" id="studentName" class="form-control" placeholder="Masukkan nama lengkap siswa" oninput="saveAuto()">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="studentClass">Kelas / No. Presensi</label>
+          <input type="text" id="studentClass" class="form-control" placeholder="Contoh: VIII-A / 14 atau X-1 / 07" oninput="saveAuto()">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="studentSchool">Nama Sekolah</label>
+          <input type="text" id="studentSchool" class="form-control" placeholder="Nama Satuan Pendidikan" oninput="saveAuto()">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Alat Berbasis KA yang Dipakai</label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="toolKA" value="Canva AI" checked onchange="saveAuto()"> Canva AI</label>
+            <label class="radio-label"><input type="radio" name="toolKA" value="Kapwing AI" onchange="saveAuto()"> Kapwing AI</label>
+            <label class="radio-label"><input type="radio" name="toolKA" value="Lainnya" onchange="saveAuto()"> Lainnya</label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Card 2: Informasi Dokumentasi Sekolah -->
+    <section class="card">
+      <div class="card-header">
+        <h3 class="card-title">📸 Bagian 1: Data Dokumentasi Sekolah (File Mentah)</h3>
+        <span class="badge badge-blue">Instruksi a</span>
+      </div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">Tipe File Dokumentasi</label>
+          <select id="docType" class="form-control" onchange="saveAuto()">
+            <option value="Foto Digital">Foto Digital (JPG / PNG)</option>
+            <option value="Video Pendek">Video Pendek (Durasi Maksimal 1 Menit / MP4)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="docActivity">Nama Kegiatan Sekolah</label>
+          <input type="text" id="docActivity" class="form-control" placeholder="Contoh: Praktik IPA di Lab / Ekstrakurikuler Robotik / Proyek P5" oninput="saveAuto()">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="docIssue">Kondisi Awal / Rencana Perbaikan</label>
+        <textarea id="docIssue" class="form-control" rows="2" placeholder="Ceritakan kondisi file mentah (misal: ada kabel melintang, tempat sampah bocor di latar, suara kurang jelas, butuh takarir teks otomatis)..." oninput="saveAuto()"></textarea>
+      </div>
+    </section>
+
+    <!-- Card 3: Log Penggunaan Fitur KA -->
+    <section class="card">
+      <div class="card-header">
+        <h3 class="card-title">🤖 Bagian 2: Log Eksplorasi Fitur Kecerdasan Artifisial (KA)</h3>
+        <button class="btn btn-primary btn-sm" onclick="addAiRow()">+ Tambah Fitur</button>
+      </div>
+      <p style="font-size: 0.85rem; color: var(--gray); margin-bottom: 12px;">
+        Gunakan minimal 2 (dua) fitur KA (misal: <em>Magic Eraser / Inpainting</em>, <em>Auto Subtitle</em>, <em>Magic Edit</em>, <em>Background Remover</em>, atau <em>AI Enhancer</em>).
+      </p>
+      
+      <table class="ai-table" id="aiFeatureTable">
+        <thead>
+          <tr>
+            <th style="width: 5%;">No</th>
+            <th style="width: 25%;">Fitur KA</th>
+            <th style="width: 35%;">Perintah / Prompt / Area Seleksi</th>
+            <th style="width: 30%;">Hasil Otomatisasi KA</th>
+            <th style="width: 5%;">Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="aiTableBody">
+          <!-- Row 1 -->
+          <tr>
+            <td style="text-align: center;">1</td>
+            <td>
+              <input type="text" class="form-control" value="Magic Eraser (Penghilang Objek)" placeholder="Nama fitur" oninput="saveAuto()">
+            </td>
+            <td>
+              <input type="text" class="form-control" value="Menyeleksi botol plastik di pojok kanan meja" placeholder="Aksi / Prompt" oninput="saveAuto()">
+            </td>
+            <td>
+              <input type="text" class="form-control" value="Botol terhapus rapi, latar meja digenerasi otomatis" placeholder="Hasil perubahan" oninput="saveAuto()">
+            </td>
+            <td><button class="btn btn-danger btn-sm" onclick="removeAiRow(this)">✕</button></td>
+          </tr>
+          <!-- Row 2 -->
+          <tr>
+            <td style="text-align: center;">2</td>
+            <td>
+              <input type="text" class="form-control" value="Auto Subtitles / Captions" placeholder="Nama fitur" oninput="saveAuto()">
+            </td>
+            <td>
+              <input type="text" class="form-control" value="Generate ucapan teman saat mempresentasikan alat" placeholder="Aksi / Prompt" oninput="saveAuto()">
+            </td>
+            <td>
+              <input type="text" class="form-control" value="Muncul takarir otomatis sinkron dengan suara" placeholder="Hasil perubahan" oninput="saveAuto()">
+            </td>
+            <td><button class="btn btn-danger btn-sm" onclick="removeAiRow(this)">✕</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Card 4: Preview Komparasi Before vs After & Tautan Unggah -->
+    <section class="card">
+      <div class="card-header">
+        <h3 class="card-title">🖼️ Bagian 3: Bukti Visual Hasil Penyuntingan (Before vs After)</h3>
+        <span class="badge badge-teal">Instruksi b & c</span>
+      </div>
+      <p style="font-size: 0.85rem; color: var(--gray); margin-bottom: 8px;">
+        Ketuk kotak di bawah untuk mengunggah foto/video mentah dan hasil jadinya langsung dari devicemu untuk ditampilkan berdampingan:
+      </p>
+
+      <!-- Petunjuk Ramah Pengguna iPhone / Safari -->
+      <div style="background: #f0fdfa; border: 1px solid #ccfbf1; border-left: 4px solid var(--primary); border-radius: 6px; padding: 10px 14px; margin-bottom: 14px; font-size: 0.82rem; color: #0f766e; display: flex; align-items: flex-start; gap: 10px;">
+        <span style="font-size: 1.1rem; line-height: 1;">📱</span>
+        <div>
+          <strong>Tips Pengguna iPhone / iPad:</strong>
+          <span style="display: block; margin-top: 2px; color: #134e4a;">
+            Ketuk langsung pada kotak di bawah untuk membuka menu <strong>"Pustaka Foto"</strong> atau <strong>"Ambil Foto/Video"</strong>. Jika membuka file ini lewat WhatsApp atau File Manager, pastikan buka via browser <strong>Safari</strong> agar izin akses kamera/foto diaktifkan oleh iOS.
+          </span>
+        </div>
+      </div>
+
+      <div class="media-compare-container">
+        <!-- Before Box -->
+        <div class="upload-box" id="boxBefore">
+          <input type="file" id="fileBefore" class="file-input" accept="image/*,video/*,.heic,.heif,.mov,.mp4" onchange="previewFile(this, 'contentBefore', 'boxBefore')">
+          <span class="badge badge-blue" style="z-index: 5; position: relative;">Kondisi SEBELUM (Before)</span>
+          <div id="contentBefore" style="z-index: 5; position: relative; width: 100%;">
+            <p style="margin-top: 14px; font-size: 0.85rem; color: var(--gray);">📁 Ketuk di sini untuk upload foto/video asli</p>
+            <span style="font-size: 0.75rem; color: #94a3b8; display: block; margin-top: 4px;">(Pustaka Foto / Kamera / File)</span>
+          </div>
+        </div>
+
+        <!-- After Box -->
+        <div class="upload-box" id="boxAfter">
+          <input type="file" id="fileAfter" class="file-input" accept="image/*,video/*,.heic,.heif,.mov,.mp4" onchange="previewFile(this, 'contentAfter', 'boxAfter')">
+          <span class="badge badge-teal" style="z-index: 5; position: relative;">Hasil SESUDAH Diedit KA (After)</span>
+          <div id="contentAfter" style="z-index: 5; position: relative; width: 100%;">
+            <p style="margin-top: 14px; font-size: 0.85rem; color: var(--gray);">✨ Ketuk di sini untuk upload hasil editan KA</p>
+            <span style="font-size: 0.75rem; color: #94a3b8; display: block; margin-top: 4px;">(Pustaka Foto / Kamera / File)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-top: 20px;">
+        <label class="form-label" for="taskUrl">🔗 Tautan (Link) Pengumpulan Tugas</label>
+        <div style="display: flex; gap: 8px;">
+          <input type="url" id="taskUrl" class="form-control" placeholder="https://classroom.google.com/... atau tautan Canva / Drive" oninput="saveAuto()">
+          <button class="btn btn-outline-dark" onclick="openLink()">Buka Link</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Card 5: Analisis Kritis & Refleksi Presentasi (Poin d) -->
+    <section class="card">
+      <div class="card-header">
+        <h3 class="card-title">💡 Bagian 4: Lembar Analisis Kritis & Bahan Presentasi (Poin d)</h3>
+        <span class="badge badge-teal">Bernalar Kritis</span>
+      </div>
+
+      <div class="reflection-item">
+        <h4>1. Bagaimana Kecerdasan Artifisial (KA) membantu mempermudah dan mempercepat proses penyuntinganmu?</h4>
+        <div class="reflection-hint">Tips: Uraikan perbandingannya dari sisi efisiensi waktu, kemudahan seleksi objek, dan hasil otomatis dibanding edit manual dari nol.</div>
+        <textarea id="ref1" class="form-control" rows="3" placeholder="Tuliskan analisis peran KA di sini..." oninput="saveAuto()"></textarea>
+      </div>
+
+      <div class="reflection-item">
+        <h4>2. Bagian mana dari proses editing yang hasilnya MASIH KURANG SEMPURNA oleh KA sehingga perlu kamu perbaiki manual? Mengapa?</h4>
+        <div class="reflection-hint">Tips: Misalnya hasil penghapusan objek meninggalkan bayangan buram, ejaan teks otomatis salah dengar kosakata bahasa Indonesia/daerah, atau warna terlihat artifisial.</div>
+        <textarea id="ref2" class="form-control" rows="3" placeholder="Tuliskan kekurangan KA dan langkah perbaikan manual yang kamu ambil..." oninput="saveAuto()"></textarea>
+      </div>
+
+      <div class="reflection-item">
+        <h4>3. Mengapa peran editor manusia (Human-in-the-Loop) tetap tidak tergantikan oleh kecerdasan artifisial seutuhnya?</h4>
+        <div class="reflection-hint">Tips: Diskusikan mengenai rasa estetika, kreativitas ide cerita (storytelling), etika konteks sekolah, dan ketelitian koreksi akhir.</div>
+        <textarea id="ref3" class="form-control" rows="3" placeholder="Tuliskan pandanganmu mengenai kolaborasi manusia dan AI..." oninput="saveAuto()"></textarea>
+      </div>
+
+      <div class="reflection-item">
+        <h4>4. Refleksi Etika Digital: Hal penting apa yang wajib diperhatikan saat mengedit dan mengunggah dokumentasi orang lain di sekolah?</h4>
+        <div class="reflection-hint">Tips: Pikirkan tentang hak privasi teman/guru, kejujuran konten (menghindari misinformasi/hoaks), dan tata tertib madrasah/sekolah.</div>
+        <textarea id="ref4" class="form-control" rows="2" placeholder="Tuliskan komitmen etika digitalmu..." oninput="saveAuto()"></textarea>
+      </div>
+    </section>
+
+    <!-- Bonus Card: Laboratorium Simulasi KA Mini (Inpainting Demo) -->
+    <section class="card">
+      <div class="card-header">
+        <h3 class="card-title">🧪 Bonus Lab: Simulasi Cara Kerja AI Object Eraser (Inpainting)</h3>
+        <span class="badge badge-blue">Interactive Demo</span>
+      </div>
+      <p style="font-size: 0.85rem; color: var(--gray);">
+        Coba rasakan bagaimana algoritma <em>Computer Vision</em> mendeteksi goresan kuas seleksi dan merekonstruksi piksel di sekitarnya secara cerdas:
+      </p>
+
+      <div class="simulator-container">
+        <div class="canvas-wrapper">
+          <canvas id="eraserCanvas" width="500" height="260"></canvas>
+        </div>
+        <div class="sim-controls">
+          <button class="btn btn-outline-dark btn-sm" onclick="resetSimCanvas()">🔄 Reset Objek Simulasi</button>
+          <button class="btn btn-primary btn-sm" onclick="runAiInpainting()">🪄 Jalankan KA Magic Eraser</button>
+        </div>
+        <p style="text-align: center; font-size: 0.78rem; color: var(--gray); margin-top: 8px;">
+          Goreskan kursor/sentuhan jari Anda di atas <strong>kotak merah (objek sampah)</strong>, lalu klik tombol "Jalankan KA Magic Eraser".
+        </p>
+      </div>
+    </section>
+
+
+  </main>
+
+  <!-- Notifikasi Toast -->
+  <div id="toast">✅ Perubahan tersimpan otomatis</div>
+
+  <script>
+    // Inisialisasi Canvas Simulasi AI Eraser
+    const canvas = document.getElementById('eraserCanvas');
+    const ctx = canvas.getContext('2d');
+    let isDrawing = false;
+
+    function resetSimCanvas() {
+      // Latar belakang taman sekolah (gradien langit dan rumput)
+      ctx.fillStyle = '#bae6fd';
+      ctx.fillRect(0, 0, 500, 160);
+      ctx.fillStyle = '#4ade80';
+      ctx.fillRect(0, 160, 500, 100);
+
+      // Gambar gedung sekolah sederhana
+      ctx.fillStyle = '#f87171';
+      ctx.fillRect(60, 60, 160, 100);
+      ctx.fillStyle = '#fef08a';
+      ctx.fillRect(80, 80, 40, 40);
+      ctx.fillRect(160, 80, 40, 40);
+
+      // Gambar "Objek Pengganggu" (Kotak Sampah Merah) yang perlu dihapus
+      ctx.fillStyle = '#dc2626';
+      ctx.fillRect(320, 170, 50, 60);
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '10px sans-serif';
+      ctx.fillText('SAMPAH', 325, 205);
+    }
+    resetSimCanvas();
+
+    function getMousePos(e) {
+      const rect = canvas.getBoundingClientRect();
+      const scaleX = canvas.width / rect.width;
+      const scaleY = canvas.height / rect.height;
+      const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+      const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+      return {
+        x: (clientX - rect.left) * scaleX,
+        y: (clientY - rect.top) * scaleY
+      };
+    }
+
+    function startDraw(e) {
+      isDrawing = true;
+      drawMask(e);
+    }
+    function endDraw() {
+      isDrawing = false;
+      ctx.beginPath();
+    }
+    function drawMask(e) {
+      if (!isDrawing) return;
+      const pos = getMousePos(e);
+      ctx.lineWidth = 26;
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = 'rgba(239, 68, 68, 0.6)'; // Masking kuas merah transparan
+      ctx.lineTo(pos.x, pos.y);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(pos.x, pos.y);
+    }
+
+    canvas.addEventListener('mousedown', startDraw);
+    canvas.addEventListener('mousemove', drawMask);
+    window.addEventListener('mouseup', endDraw);
+    canvas.addEventListener('touchstart', (e) => { e.preventDefault(); startDraw(e); });
+    canvas.addEventListener('touchmove', (e) => { e.preventDefault(); drawMask(e); });
+    canvas.addEventListener('touchend', endDraw);
+
+    function runAiInpainting() {
+      showToast('🤖 AI sedang menganalisis piksel & menghapus objek...');
+      setTimeout(() => {
+        // AI inpainting: menutup area sampah dengan rumput mulus
+        ctx.fillStyle = '#4ade80';
+        ctx.fillRect(310, 160, 80, 80);
+
+        // Tambahkan tekstur rumput alami
+        ctx.fillStyle = '#22c55e';
+        for (let i = 0; i < 20; i++) {
+          ctx.fillRect(315 + (i * 3.5), 180 + (i % 5 * 8), 3, 10);
+        }
+        showToast('✨ Objek berhasil dihilangkan dengan AI!');
+      }, 700);
+    }
+
+    // Preview File Upload (Before vs After) - Dioptimalkan untuk iPhone iOS & Desktop
+    function previewFile(input, targetId, boxId) {
+      const file = input.files && input.files[0];
+      if (!file) return;
+
+      const target = document.getElementById(targetId);
+      const box = document.getElementById(boxId);
+      target.innerHTML = '';
+
+      const isImage = file.type.startsWith('image/') || /\.(jpe?g|png|gif|webp|heic|heif|bmp|svg)$/i.test(file.name);
+      const isVideo = file.type.startsWith('video/') || /\.(mp4|mov|webm|m4v|3gp|quicktime)$/i.test(file.name);
+      const mediaUrl = URL.createObjectURL(file);
+
+      if (isImage) {
+        const img = document.createElement('img');
+        img.src = mediaUrl;
+        img.className = 'preview-media';
+        img.alt = file.name;
+        target.appendChild(img);
+      } else if (isVideo) {
+        const video = document.createElement('video');
+        video.src = mediaUrl;
+        video.className = 'preview-media';
+        video.controls = true;
+        video.setAttribute('playsinline', '');
+        video.setAttribute('webkit-playsinline', '');
+        video.setAttribute('preload', 'metadata');
+        target.appendChild(video);
+      } else {
+        const div = document.createElement('div');
+        div.style.padding = '14px';
+        div.innerHTML = `📄 <strong>${file.name}</strong>`;
+        target.appendChild(div);
+      }
+
+      // Metadata file
+      const meta = document.createElement('div');
+      meta.className = 'file-meta-badge';
+      meta.innerText = `${file.name} (${(file.size / (1024 * 1024)).toFixed(1)} MB)`;
+      target.appendChild(meta);
+
+      // Tombol Ganti / Hapus
+      const clearBtn = document.createElement('button');
+      clearBtn.type = 'button';
+      clearBtn.className = 'btn btn-outline-dark btn-sm btn-clear-media';
+      clearBtn.innerText = '🔄 Ganti / Hapus File';
+      clearBtn.onclick = function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        input.value = '';
+        box.classList.remove('has-file');
+        const defaultText = boxId === 'boxBefore' ? '📁 Ketuk di sini untuk upload foto/video asli' : '✨ Ketuk di sini untuk upload hasil editan KA';
+        target.innerHTML = `<p style="margin-top: 14px; font-size: 0.85rem; color: var(--gray);">${defaultText}</p><span style="font-size: 0.75rem; color: #94a3b8; display: block; margin-top: 4px;">(Pustaka Foto / Kamera / File)</span>`;
+      };
+      target.appendChild(clearBtn);
+
+      box.classList.add('has-file');
+      showToast('📁 Media berhasil dimuat di browser');
+      updateProgress();
+    }
+
+    // Dynamic AI Features Table
+    function addAiRow() {
+      const tbody = document.getElementById('aiTableBody');
+      const rowCount = tbody.rows.length + 1;
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td style="text-align: center;">${rowCount}</td>
+        <td><input type="text" class="form-control" placeholder="Fitur KA (misal: AI Enhancer)" oninput="saveAuto()"></td>
+        <td><input type="text" class="form-control" placeholder="Prompt / Pengaturan" oninput="saveAuto()"></td>
+        <td><input type="text" class="form-control" placeholder="Hasil perubahan" oninput="saveAuto()"></td>
+        <td><button class="btn btn-danger btn-sm" onclick="removeAiRow(this)">✕</button></td>
+      `;
+      tbody.appendChild(tr);
+      saveAuto();
+    }
+
+    function removeAiRow(btn) {
+      const tbody = document.getElementById('aiTableBody');
+      if (tbody.rows.length <= 1) {
+        alert('Minimal harus ada 1 catatan fitur KA!');
+        return;
+      }
+      btn.closest('tr').remove();
+      // Re-number
+      Array.from(tbody.rows).forEach((row, idx) => {
+        row.cells[0].innerText = idx + 1;
+      });
+      saveAuto();
+    }
+
+    // Update Checklist Progress
+    function updateProgress() {
+      const a = document.getElementById('stepA').checked;
+      const b = document.getElementById('stepB').checked;
+      const c = document.getElementById('stepC').checked;
+      const d = document.getElementById('stepD').checked;
+      const total = [a, b, c, d].filter(Boolean).length;
+      document.getElementById('progressText').innerText = `Progres: ${total} / 4 Langkah Selesai ${total === 4 ? '🎉 (Lengkap!)' : ''}`;
+      saveAuto();
+    }
+
+    // Toast Function
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.innerText = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    // Auto Save to localStorage
+    const STORAGE_KEY = 'LKPD_AKTIVITAS_1_3_DATA';
+
+    function saveAuto() {
+      const data = {
+        name: document.getElementById('studentName').value,
+        class: document.getElementById('studentClass').value,
+        school: document.getElementById('studentSchool').value,
+        toolKA: document.querySelector('input[name="toolKA"]:checked')?.value || 'Canva AI',
+        docType: document.getElementById('docType').value,
+        docActivity: document.getElementById('docActivity').value,
+        docIssue: document.getElementById('docIssue').value,
+        taskUrl: document.getElementById('taskUrl').value,
+        ref1: document.getElementById('ref1').value,
+        ref2: document.getElementById('ref2').value,
+        ref3: document.getElementById('ref3').value,
+        ref4: document.getElementById('ref4').value,
+        stepA: document.getElementById('stepA').checked,
+        stepB: document.getElementById('stepB').checked,
+        stepC: document.getElementById('stepC').checked,
+        stepD: document.getElementById('stepD').checked,
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      showToast('💾 Jawaban tersimpan otomatis');
+    }
+
+    function loadSaved() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (!saved) return;
+      try {
+        const data = JSON.parse(saved);
+        if (data.name) document.getElementById('studentName').value = data.name;
+        if (data.class) document.getElementById('studentClass').value = data.class;
+        if (data.school) document.getElementById('studentSchool').value = data.school;
+        if (data.docType) document.getElementById('docType').value = data.docType;
+        if (data.docActivity) document.getElementById('docActivity').value = data.docActivity;
+        if (data.docIssue) document.getElementById('docIssue').value = data.docIssue;
+        if (data.taskUrl) document.getElementById('taskUrl').value = data.taskUrl;
+        if (data.ref1) document.getElementById('ref1').value = data.ref1;
+        if (data.ref2) document.getElementById('ref2').value = data.ref2;
+        if (data.ref3) document.getElementById('ref3').value = data.ref3;
+        if (data.ref4) document.getElementById('ref4').value = data.ref4;
+        if (data.stepA) document.getElementById('stepA').checked = data.stepA;
+        if (data.stepB) document.getElementById('stepB').checked = data.stepB;
+        if (data.stepC) document.getElementById('stepC').checked = data.stepC;
+        if (data.stepD) document.getElementById('stepD').checked = data.stepD;
+        updateProgress();
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function resetForm() {
+      if (confirm('Apakah kamu yakin ingin mengosongkan seluruh isian LKPD ini?')) {
+        localStorage.removeItem(STORAGE_KEY);
+        location.reload();
+      }
+    }
+
+    function exportDataJSON() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (!saved) {
+        alert('Belum ada data pengerjaan yang tersimpan.');
+        return;
+      }
+      const blob = new Blob([saved], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `LKPD_Aktivitas1.3_${document.getElementById('studentName').value || 'Siswa'}.json`;
+      a.click();
+    }
+
+    function openLink() {
+      const url = document.getElementById('taskUrl').value;
+      if (!url) {
+        alert('Tautan pengumpulan tugas belum diisi.');
+        return;
+      }
+      window.open(url, '_blank');
+    }
+
+    window.onload = function() {
+      loadSaved();
+    };
+  </script>
+</body>
+</html>
