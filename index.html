@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aplikasi Web LKPD - Aktivitas 1.3 Koding & Kecerdasan Artifisial</title>
+  <title>Aplikasi Web LKPD - Aktivitas 1.4 Penyuntingan Audio Berbasis KA</title>
   <style>
     :root {
       --primary: #0d9488;
@@ -84,7 +84,7 @@
       align-items: center;
     }
 
-    /* Tombol-tombol Utama */
+    /* Tombol */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -112,6 +112,13 @@
     .btn-primary:hover {
       background: var(--primary-dark);
     }
+    .btn-danger {
+      background: #ef4444;
+      color: white;
+    }
+    .btn-danger:hover {
+      background: #dc2626;
+    }
     .btn-outline {
       background: transparent;
       border: 1.5px solid white;
@@ -129,18 +136,11 @@
       background: var(--gray-light);
     }
     .btn-sm {
-      padding: 5px 10px;
+      padding: 5px 12px;
       font-size: 0.78rem;
     }
-    .btn-danger {
-      background: #ef4444;
-      color: white;
-    }
-    .btn-danger:hover {
-      background: #dc2626;
-    }
 
-    /* Container Konten */
+    /* Main Container */
     .main-wrapper {
       max-width: 1080px;
       margin: 24px auto;
@@ -150,7 +150,7 @@
       gap: 24px;
     }
 
-    /* Kartu Card */
+    /* Cards */
     .card {
       background: var(--card-bg);
       border-radius: var(--radius);
@@ -188,7 +188,7 @@
     .badge-teal { background: var(--primary-light); color: var(--primary-dark); }
     .badge-blue { background: var(--secondary-light); color: var(--secondary); }
 
-    /* Banner Aktivitas Buku */
+    /* Hero Banner */
     .activity-hero {
       background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
       color: white;
@@ -218,7 +218,7 @@
       opacity: 0.95;
     }
 
-    /* Checklist Petunjuk Kerja */
+    /* Steps Box */
     .steps-box {
       background: #eff6ff;
       border: 1.5px solid #bfdbfe;
@@ -255,7 +255,7 @@
       cursor: pointer;
     }
 
-    /* Grid Form */
+    /* Forms */
     .form-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -291,127 +291,121 @@
       min-height: 80px;
     }
 
-    /* Radio Group */
-    .radio-group {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-top: 6px;
-    }
-    .radio-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.85rem;
-      cursor: pointer;
-    }
-    .radio-label input {
-      accent-color: var(--primary);
-    }
-
-    /* Dynamic Table for AI Features */
-    .ai-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-      font-size: 0.85rem;
-    }
-    .ai-table th, .ai-table td {
-      border: 1px solid var(--gray-light);
-      padding: 10px 12px;
-      text-align: left;
-    }
-    .ai-table th {
-      background: var(--primary-subtle);
-      color: var(--primary-dark);
-      font-weight: 700;
-    }
-    .ai-table tr:hover {
-      background: #fafafa;
-    }
-
-    /* Before-After Interactive Area */
-    .media-compare-container {
+    /* Audio Comparison Box */
+    .audio-compare-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 16px;
-      margin-top: 12px;
+      margin-top: 14px;
     }
     @media (max-width: 720px) {
-      .media-compare-container {
+      .audio-compare-grid {
         grid-template-columns: 1fr;
       }
     }
-    .upload-box {
+    .audio-card {
       border: 2px dashed #94a3b8;
       border-radius: 8px;
       padding: 16px;
       text-align: center;
       background: #fdfdfd;
-      transition: all 0.2s;
-      cursor: pointer;
       position: relative;
       overflow: hidden;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .audio-card.has-file {
+      border-style: solid;
+      border-color: var(--primary);
+      background: #ffffff;
+    }
+    .audio-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .audio-player-wrapper {
+      margin: 12px 0;
+      width: 100%;
+    }
+    audio {
+      width: 100%;
+      height: 38px;
+    }
+
+    /* Visualizer Canvas */
+    .wave-canvas {
+      width: 100%;
+      height: 60px;
+      background: #0f172a;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    /* In-Browser Audio Recorder */
+    .recorder-box {
+      background: #f0fdfa;
+      border: 1.5px solid #ccfbf1;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      min-height: 180px;
-      -webkit-tap-highlight-color: transparent;
+      gap: 12px;
     }
-    .upload-box:hover {
-      border-color: var(--primary);
-      background: var(--primary-subtle);
+    .record-btn-group {
+      display: flex;
+      gap: 10px;
+      align-items: center;
     }
-    .upload-box.has-file {
-      border-style: solid;
-      border-color: var(--primary);
-      padding: 12px;
-      background: #ffffff;
+    .timer-display {
+      font-size: 1.4rem;
+      font-weight: 800;
+      font-family: monospace;
+      color: #0f766e;
     }
-    .preview-media {
-      max-width: 100%;
-      max-height: 240px;
-      border-radius: 6px;
-      object-fit: contain;
-      margin-top: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      position: relative;
-      z-index: 15;
+    .record-indicator {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #94a3b8;
+      margin-right: 6px;
     }
-    .file-input {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      cursor: pointer;
-      z-index: 10;
-      -webkit-appearance: none;
+    .record-indicator.recording {
+      background: #ef4444;
+      animation: pulse 1s infinite;
     }
-    .upload-box.has-file .file-input {
-      display: none;
-    }
-    .file-meta-badge {
-      font-size: 0.75rem;
-      color: var(--gray);
-      margin-top: 6px;
-      background: var(--primary-subtle);
-      border: 1px solid var(--primary-light);
-      padding: 2px 8px;
-      border-radius: 4px;
-      z-index: 15;
-      position: relative;
-      word-break: break-all;
-    }
-    .btn-clear-media {
-      margin-top: 8px;
-      z-index: 20;
-      position: relative;
+    @keyframes pulse {
+      0% { transform: scale(0.9); opacity: 0.7; }
+      50% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(0.9); opacity: 0.7; }
     }
 
-    /* Reflection Card */
+    /* Comparison Table */
+    .table-compare {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 0.85rem;
+    }
+    .table-compare th, .table-compare td {
+      border: 1px solid var(--gray-light);
+      padding: 8px 12px;
+      text-align: left;
+    }
+    .table-compare th {
+      background: var(--primary-subtle);
+      color: var(--primary-dark);
+      font-weight: 700;
+    }
+
+    /* Reflection Items */
     .reflection-item {
       background: #fdfefe;
       border: 1px solid #e2e8f0;
@@ -433,40 +427,7 @@
       font-style: italic;
     }
 
-
-    /* Interactive AI Eraser Simulator (Bonus Lab) */
-    .simulator-container {
-      background: #f1f5f9;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      padding: 16px;
-      margin-top: 16px;
-    }
-    .canvas-wrapper {
-      position: relative;
-      width: 100%;
-      max-width: 500px;
-      margin: 0 auto 12px auto;
-      background: #334155;
-      border-radius: 6px;
-      overflow: hidden;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-    }
-    canvas#eraserCanvas {
-      display: block;
-      width: 100%;
-      height: 260px;
-      cursor: crosshair;
-      touch-action: none;
-    }
-    .sim-controls {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    /* Autosave toast notification */
+    /* Toast */
     #toast {
       position: fixed;
       bottom: 20px;
@@ -477,9 +438,6 @@
       border-radius: 6px;
       font-size: 0.85rem;
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      display: flex;
-      align-items: center;
-      gap: 8px;
       transform: translateY(100px);
       opacity: 0;
       transition: all 0.3s ease;
@@ -490,9 +448,140 @@
       opacity: 1;
     }
 
-    /* Cetak & Print Layout */
+    /* Tombol Ekstra */
+    .btn-success {
+      background: #10b981;
+      color: white;
+    }
+    .btn-success:hover {
+      background: #059669;
+    }
+    .btn-lg {
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 8px;
+    }
+
+    /* Modal Pengaturan Guru */
+    .modal-backdrop {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 16px;
+    }
+    .modal-content {
+      background: white;
+      border-radius: 12px;
+      max-width: 550px;
+      width: 100%;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      animation: modalPop 0.2s ease-out;
+    }
+    @keyframes modalPop {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .modal-header {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      color: white;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-header h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .modal-body {
+      padding: 20px;
+    }
+    .modal-footer {
+      padding: 14px 20px;
+      background: #f8fafc;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    /* Alerts */
+    .alert {
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.45;
+    }
+    .alert-info {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1e40af;
+    }
+    .alert-success {
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      color: #065f46;
+    }
+    .alert-warning {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      color: #92400e;
+    }
+    .alert-danger {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #991b1b;
+    }
+
+    /* Submit Card Special Styling */
+    .submit-card {
+      border: 2px solid var(--primary-light);
+      background: linear-gradient(to bottom, #ffffff, #f0fdfa);
+      position: relative;
+    }
+    .submit-action-box {
+      background: white;
+      border: 2px dashed var(--primary);
+      border-radius: 10px;
+      padding: 24px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      margin-top: 14px;
+    }
+    .spinner {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 0.8s ease-in-out infinite;
+      vertical-align: middle;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Print */
     @media print {
-      header, .header-actions, .steps-box, .sim-controls, .simulator-container, .btn, #toast, .upload-box p {
+      header, .header-actions, .steps-box, .btn, #toast, .recorder-box, .wave-canvas, .modal-backdrop, #sectionSubmit .submit-action-box, #sectionSubmit .alert-info, #sectionSubmit .alert-warning {
         display: none !important;
       }
       body {
@@ -511,16 +600,6 @@
         margin-bottom: 12px;
         padding: 14px;
       }
-      .activity-hero {
-        background: #0f766e !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-        color: white !important;
-        padding: 10px 16px;
-      }
-      .preview-media {
-        max-height: 180px;
-      }
     }
   </style>
 </head>
@@ -530,10 +609,10 @@
   <header>
     <div class="header-container">
       <div class="brand-title">
-        <div class="brand-icon">⚙️ 💻</div>
+        <div class="brand-icon">🎙️ 💻</div>
         <div>
           <h1>LKPD DIGITAL &bull; KODING & KECERDASAN ARTIFISIAL</h1>
-          <p>Aktivitas 1.3: Menyunting Gambar dan Video Digital dengan KA</p>
+          <p>Aktivitas 1.4: Penyuntingan Audio Menggunakan Aplikasi Berbasis KA (Kelas XI)</p>
         </div>
       </div>
       <div class="header-actions">
@@ -546,15 +625,15 @@
 
   <main class="main-wrapper">
 
-    <!-- Hero Aktivitas 1.3 (Persis Gambar Buku) -->
+    <!-- Hero Banner Aktivitas 1.4 (Sesuai Buku) -->
     <div class="activity-hero">
-      <div class="activity-hero-icon">⚙️ 💻</div>
+      <div class="activity-hero-icon">⚙️ 🎙️</div>
       <div class="activity-hero-content">
         <span class="badge badge-teal" style="background: rgba(255,255,255,0.25); color: white; margin-bottom: 4px; display: inline-block;">
-          Kurikulum Merdeka &bull; Fase D / E (SMP / SMA)
+          Kurikulum Merdeka &bull; Fase F (SMA/MA Kelas XI)
         </span>
-        <h2>Aktivitas 1.3</h2>
-        <p>Menyunting Gambar dan Video Digital dengan KA (Aktivitas Individu)</p>
+        <h2>Aktivitas 1.4</h2>
+        <p>Penyuntingan Audio Menggunakan Aplikasi Berbasis KA (Aktivitas Individu)</p>
       </div>
     </div>
 
@@ -564,19 +643,19 @@
       <ul class="steps-list">
         <li class="step-item">
           <input type="checkbox" id="stepA" onchange="updateProgress()">
-          <label for="stepA"><strong>a.</strong> Mengambil 1 foto atau video pendek (maksimal 1 menit) dari dokumentasi kegiatan di sekolah.</label>
+          <label for="stepA"><strong>a.</strong> Merekam suara membacakan paragraf pendek (puisi/narasi/deskripsi produk) durasi 30–60 detik.</label>
         </li>
         <li class="step-item">
           <input type="checkbox" id="stepB" onchange="updateProgress()">
-          <label for="stepB"><strong>b.</strong> Menggunakan alat berbasis KA (<strong>Canva</strong> atau <strong>Kapwing</strong>) untuk menambah teks, efek visual, atau menghilangkan objek.</label>
+          <label for="stepB"><strong>b.</strong> Menggunakan aplikasi berbasis KA (<strong>Adobe Podcast</strong>, <strong>Descript</strong>, atau <strong>Auphonic</strong>) untuk menyunting audio.</label>
         </li>
         <li class="step-item">
           <input type="checkbox" id="stepC" onchange="updateProgress()">
-          <label for="stepC"><strong>c.</strong> Mengunggah hasil kerja ke platform yang disepakati (Google Classroom / Drive / LMS) dan melampirkan link.</label>
+          <label for="stepC"><strong>c.</strong> Membandingkan kualitas audio asli dan hasil suntingan bantuan KA (kebisingan, gema, kejelasan vokal).</label>
         </li>
         <li class="step-item">
           <input type="checkbox" id="stepD" onchange="updateProgress()">
-          <label for="stepD"><strong>d.</strong> Melakukan analisis refleksi bagaimana KA membantu serta bagian apa yang masih perlu disempurnakan secara manual untuk presentasi.</label>
+          <label for="stepD"><strong>d.</strong> Melakukan refleksi singkat (apakah kualitas meningkat? apakah prosesnya mudah dilakukan?).</label>
         </li>
       </ul>
       <div style="margin-top: 10px; font-size: 0.8rem; color: #1e40af; font-weight: 600;" id="progressText">
@@ -584,7 +663,7 @@
       </div>
     </div>
 
-    <!-- Card 1: Data Identitas Siswa -->
+    <!-- Identitas Peserta Didik -->
     <section class="card">
       <div class="card-header">
         <h3 class="card-title">👤 Identitas Peserta Didik</h3>
@@ -597,391 +676,354 @@
         </div>
         <div class="form-group">
           <label class="form-label" for="studentClass">Kelas / No. Presensi</label>
-          <input type="text" id="studentClass" class="form-control" placeholder="Contoh: VIII-A / 14 atau X-1 / 07" oninput="saveAuto()">
+          <input type="text" id="studentClass" class="form-control" placeholder="Contoh: XI-MIPA-1 / 15" oninput="saveAuto()">
         </div>
         <div class="form-group">
           <label class="form-label" for="studentSchool">Nama Sekolah</label>
           <input type="text" id="studentSchool" class="form-control" placeholder="Nama Satuan Pendidikan" oninput="saveAuto()">
         </div>
         <div class="form-group">
-          <label class="form-label">Alat Berbasis KA yang Dipakai</label>
-          <div class="radio-group">
-            <label class="radio-label"><input type="radio" name="toolKA" value="Canva AI" checked onchange="saveAuto()"> Canva AI</label>
-            <label class="radio-label"><input type="radio" name="toolKA" value="Kapwing AI" onchange="saveAuto()"> Kapwing AI</label>
-            <label class="radio-label"><input type="radio" name="toolKA" value="Lainnya" onchange="saveAuto()"> Lainnya</label>
-          </div>
+          <label class="form-label">Aplikasi KA yang Digunakan</label>
+          <select id="toolKA" class="form-control" onchange="saveAuto()">
+            <option value="Adobe Podcast AI (Enhance Speech)">Adobe Podcast AI (Enhance Speech)</option>
+            <option value="Descript (Studio Sound)">Descript (Studio Sound)</option>
+            <option value="Auphonic">Auphonic (Noise Reduction & Leveler)</option>
+            <option value="Lainnya">Lainnya</option>
+          </select>
         </div>
       </div>
     </section>
 
-    <!-- Card 2: Informasi Dokumentasi Sekolah -->
+    <!-- Bagian 1: Naskah & Perekaman Suara -->
     <section class="card">
       <div class="card-header">
-        <h3 class="card-title">📸 Bagian 1: Data Dokumentasi Sekolah (File Mentah)</h3>
-        <span class="badge badge-blue">Instruksi a</span>
+        <h3 class="card-title">📝 Bagian 1: Naskah Bacaan & Perekaman Audio Mentah (Instruksi a)</h3>
+        <span class="badge badge-blue">Durasi 30–60 Detik</span>
       </div>
+
       <div class="form-grid">
         <div class="form-group">
-          <label class="form-label">Tipe File Dokumentasi</label>
-          <select id="docType" class="form-control" onchange="saveAuto()">
-            <option value="Foto Digital">Foto Digital (JPG / PNG)</option>
-            <option value="Video Pendek">Video Pendek (Durasi Maksimal 1 Menit / MP4)</option>
+          <label class="form-label">Jenis Teks Naskah</label>
+          <select id="scriptType" class="form-control" onchange="saveAuto()">
+            <option value="Teks Puisi">Teks Puisi</option>
+            <option value="Teks Narasi Cerita">Teks Narasi Cerita</option>
+            <option value="Teks Deskripsi / Iklan Produk">Teks Deskripsi / Iklan Produk</option>
           </select>
         </div>
         <div class="form-group">
-          <label class="form-label" for="docActivity">Nama Kegiatan Sekolah</label>
-          <input type="text" id="docActivity" class="form-control" placeholder="Contoh: Praktik IPA di Lab / Ekstrakurikuler Robotik / Proyek P5" oninput="saveAuto()">
+          <label class="form-label" for="scriptTitle">Judul Naskah / Produk</label>
+          <input type="text" id="scriptTitle" class="form-control" placeholder="Contoh: Puisi 'Hujan Bulan Juni' / Iklan Sepatu Lokal" oninput="saveAuto()">
         </div>
       </div>
+
       <div class="form-group">
-        <label class="form-label" for="docIssue">Kondisi Awal / Rencana Perbaikan</label>
-        <textarea id="docIssue" class="form-control" rows="2" placeholder="Ceritakan kondisi file mentah (misal: ada kabel melintang, tempat sampah bocor di latar, suara kurang jelas, butuh takarir teks otomatis)..." oninput="saveAuto()"></textarea>
+        <label class="form-label" for="scriptContent">Teks Paragraf yang Dibacakan</label>
+        <textarea id="scriptContent" class="form-control" rows="3" placeholder="Tuliskan naskah yang kamu baca saat merekam di sini..." oninput="saveAuto()"></textarea>
       </div>
-    </section>
 
-    <!-- Card 3: Log Penggunaan Fitur KA -->
-    <section class="card">
-      <div class="card-header">
-        <h3 class="card-title">🤖 Bagian 2: Log Eksplorasi Fitur Kecerdasan Artifisial (KA)</h3>
-        <button class="btn btn-primary btn-sm" onclick="addAiRow()">+ Tambah Fitur</button>
-      </div>
-      <p style="font-size: 0.85rem; color: var(--gray); margin-bottom: 12px;">
-        Gunakan minimal 2 (dua) fitur KA (misal: <em>Magic Eraser / Inpainting</em>, <em>Auto Subtitle</em>, <em>Magic Edit</em>, <em>Background Remover</em>, atau <em>AI Enhancer</em>).
-      </p>
-      
-      <table class="ai-table" id="aiFeatureTable">
-        <thead>
-          <tr>
-            <th style="width: 5%;">No</th>
-            <th style="width: 25%;">Fitur KA</th>
-            <th style="width: 35%;">Perintah / Prompt / Area Seleksi</th>
-            <th style="width: 30%;">Hasil Otomatisasi KA</th>
-            <th style="width: 5%;">Aksi</th>
-          </tr>
-        </thead>
-        <tbody id="aiTableBody">
-          <!-- Row 1 -->
-          <tr>
-            <td style="text-align: center;">1</td>
-            <td>
-              <input type="text" class="form-control" value="Magic Eraser (Penghilang Objek)" placeholder="Nama fitur" oninput="saveAuto()">
-            </td>
-            <td>
-              <input type="text" class="form-control" value="Menyeleksi botol plastik di pojok kanan meja" placeholder="Aksi / Prompt" oninput="saveAuto()">
-            </td>
-            <td>
-              <input type="text" class="form-control" value="Botol terhapus rapi, latar meja digenerasi otomatis" placeholder="Hasil perubahan" oninput="saveAuto()">
-            </td>
-            <td><button class="btn btn-danger btn-sm" onclick="removeAiRow(this)">✕</button></td>
-          </tr>
-          <!-- Row 2 -->
-          <tr>
-            <td style="text-align: center;">2</td>
-            <td>
-              <input type="text" class="form-control" value="Auto Subtitles / Captions" placeholder="Nama fitur" oninput="saveAuto()">
-            </td>
-            <td>
-              <input type="text" class="form-control" value="Generate ucapan teman saat mempresentasikan alat" placeholder="Aksi / Prompt" oninput="saveAuto()">
-            </td>
-            <td>
-              <input type="text" class="form-control" value="Muncul takarir otomatis sinkron dengan suara" placeholder="Hasil perubahan" oninput="saveAuto()">
-            </td>
-            <td><button class="btn btn-danger btn-sm" onclick="removeAiRow(this)">✕</button></td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-    <!-- Card 4: Preview Komparasi Before vs After & Tautan Unggah -->
-    <section class="card">
-      <div class="card-header">
-        <h3 class="card-title">🖼️ Bagian 3: Bukti Visual Hasil Penyuntingan (Before vs After)</h3>
-        <span class="badge badge-teal">Instruksi b & c</span>
-      </div>
-      <p style="font-size: 0.85rem; color: var(--gray); margin-bottom: 8px;">
-        Ketuk kotak di bawah untuk mengunggah foto/video mentah dan hasil jadinya langsung dari devicemu untuk ditampilkan berdampingan:
-      </p>
-
-      <!-- Petunjuk Ramah Pengguna iPhone / Safari -->
-      <div style="background: #f0fdfa; border: 1px solid #ccfbf1; border-left: 4px solid var(--primary); border-radius: 6px; padding: 10px 14px; margin-bottom: 14px; font-size: 0.82rem; color: #0f766e; display: flex; align-items: flex-start; gap: 10px;">
-        <span style="font-size: 1.1rem; line-height: 1;">📱</span>
-        <div>
-          <strong>Tips Pengguna iPhone / iPad:</strong>
-          <span style="display: block; margin-top: 2px; color: #134e4a;">
-            Ketuk langsung pada kotak di bawah untuk membuka menu <strong>"Pustaka Foto"</strong> atau <strong>"Ambil Foto/Video"</strong>. Jika membuka file ini lewat WhatsApp atau File Manager, pastikan buka via browser <strong>Safari</strong> agar izin akses kamera/foto diaktifkan oleh iOS.
-          </span>
+      <!-- Fitur Perekam Suara Langsung di Browser -->
+      <div class="recorder-box">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span class="record-indicator" id="recIndicator"></span>
+          <span class="timer-display" id="recTimer">00:00</span>
+          <span style="font-size: 0.8rem; color: var(--gray);">(Target: 00:30 s.d. 00:60)</span>
         </div>
-      </div>
-
-      <div class="media-compare-container">
-        <!-- Before Box -->
-        <div class="upload-box" id="boxBefore">
-          <input type="file" id="fileBefore" class="file-input" accept="image/*,video/*,.heic,.heif,.mov,.mp4" onchange="previewFile(this, 'contentBefore', 'boxBefore')">
-          <span class="badge badge-blue" style="z-index: 5; position: relative;">Kondisi SEBELUM (Before)</span>
-          <div id="contentBefore" style="z-index: 5; position: relative; width: 100%;">
-            <p style="margin-top: 14px; font-size: 0.85rem; color: var(--gray);">📁 Ketuk di sini untuk upload foto/video asli</p>
-            <span style="font-size: 0.75rem; color: #94a3b8; display: block; margin-top: 4px;">(Pustaka Foto / Kamera / File)</span>
-          </div>
+        <div class="record-btn-group">
+          <button class="btn btn-primary" id="btnRecord" onclick="toggleRecord()">🎙️ Mulai Rekam di Sini</button>
+          <button class="btn btn-outline-dark" id="btnStop" onclick="stopRecord()" disabled>⏹️ Selesai</button>
+          <button class="btn btn-outline-dark" id="btnDownloadRec" onclick="downloadRecording()" style="display: none;">⬇️ Unduh Audio Rekaman</button>
         </div>
-
-        <!-- After Box -->
-        <div class="upload-box" id="boxAfter">
-          <input type="file" id="fileAfter" class="file-input" accept="image/*,video/*,.heic,.heif,.mov,.mp4" onchange="previewFile(this, 'contentAfter', 'boxAfter')">
-          <span class="badge badge-teal" style="z-index: 5; position: relative;">Hasil SESUDAH Diedit KA (After)</span>
-          <div id="contentAfter" style="z-index: 5; position: relative; width: 100%;">
-            <p style="margin-top: 14px; font-size: 0.85rem; color: var(--gray);">✨ Ketuk di sini untuk upload hasil editan KA</p>
-            <span style="font-size: 0.75rem; color: #94a3b8; display: block; margin-top: 4px;">(Pustaka Foto / Kamera / File)</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group" style="margin-top: 20px;">
-        <label class="form-label" for="taskUrl">🔗 Tautan (Link) Pengumpulan Tugas</label>
-        <div style="display: flex; gap: 8px;">
-          <input type="url" id="taskUrl" class="form-control" placeholder="https://classroom.google.com/... atau tautan Canva / Drive" oninput="saveAuto()">
-          <button class="btn btn-outline-dark" onclick="openLink()">Buka Link</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Card 5: Analisis Kritis & Refleksi Presentasi (Poin d) -->
-    <section class="card">
-      <div class="card-header">
-        <h3 class="card-title">💡 Bagian 4: Lembar Analisis Kritis & Bahan Presentasi (Poin d)</h3>
-        <span class="badge badge-teal">Bernalar Kritis</span>
-      </div>
-
-      <div class="reflection-item">
-        <h4>1. Bagaimana Kecerdasan Artifisial (KA) membantu mempermudah dan mempercepat proses penyuntinganmu?</h4>
-        <div class="reflection-hint">Tips: Uraikan perbandingannya dari sisi efisiensi waktu, kemudahan seleksi objek, dan hasil otomatis dibanding edit manual dari nol.</div>
-        <textarea id="ref1" class="form-control" rows="3" placeholder="Tuliskan analisis peran KA di sini..." oninput="saveAuto()"></textarea>
-      </div>
-
-      <div class="reflection-item">
-        <h4>2. Bagian mana dari proses editing yang hasilnya MASIH KURANG SEMPURNA oleh KA sehingga perlu kamu perbaiki manual? Mengapa?</h4>
-        <div class="reflection-hint">Tips: Misalnya hasil penghapusan objek meninggalkan bayangan buram, ejaan teks otomatis salah dengar kosakata bahasa Indonesia/daerah, atau warna terlihat artifisial.</div>
-        <textarea id="ref2" class="form-control" rows="3" placeholder="Tuliskan kekurangan KA dan langkah perbaikan manual yang kamu ambil..." oninput="saveAuto()"></textarea>
-      </div>
-
-      <div class="reflection-item">
-        <h4>3. Mengapa peran editor manusia (Human-in-the-Loop) tetap tidak tergantikan oleh kecerdasan artifisial seutuhnya?</h4>
-        <div class="reflection-hint">Tips: Diskusikan mengenai rasa estetika, kreativitas ide cerita (storytelling), etika konteks sekolah, dan ketelitian koreksi akhir.</div>
-        <textarea id="ref3" class="form-control" rows="3" placeholder="Tuliskan pandanganmu mengenai kolaborasi manusia dan AI..." oninput="saveAuto()"></textarea>
-      </div>
-
-      <div class="reflection-item">
-        <h4>4. Refleksi Etika Digital: Hal penting apa yang wajib diperhatikan saat mengedit dan mengunggah dokumentasi orang lain di sekolah?</h4>
-        <div class="reflection-hint">Tips: Pikirkan tentang hak privasi teman/guru, kejujuran konten (menghindari misinformasi/hoaks), dan tata tertib madrasah/sekolah.</div>
-        <textarea id="ref4" class="form-control" rows="2" placeholder="Tuliskan komitmen etika digitalmu..." oninput="saveAuto()"></textarea>
-      </div>
-    </section>
-
-    <!-- Bonus Card: Laboratorium Simulasi KA Mini (Inpainting Demo) -->
-    <section class="card">
-      <div class="card-header">
-        <h3 class="card-title">🧪 Bonus Lab: Simulasi Cara Kerja AI Object Eraser (Inpainting)</h3>
-        <span class="badge badge-blue">Interactive Demo</span>
-      </div>
-      <p style="font-size: 0.85rem; color: var(--gray);">
-        Coba rasakan bagaimana algoritma <em>Computer Vision</em> mendeteksi goresan kuas seleksi dan merekonstruksi piksel di sekitarnya secara cerdas:
-      </p>
-
-      <div class="simulator-container">
-        <div class="canvas-wrapper">
-          <canvas id="eraserCanvas" width="500" height="260"></canvas>
-        </div>
-        <div class="sim-controls">
-          <button class="btn btn-outline-dark btn-sm" onclick="resetSimCanvas()">🔄 Reset Objek Simulasi</button>
-          <button class="btn btn-primary btn-sm" onclick="runAiInpainting()">🪄 Jalankan KA Magic Eraser</button>
-        </div>
-        <p style="text-align: center; font-size: 0.78rem; color: var(--gray); margin-top: 8px;">
-          Goreskan kursor/sentuhan jari Anda di atas <strong>kotak merah (objek sampah)</strong>, lalu klik tombol "Jalankan KA Magic Eraser".
+        <p style="font-size: 0.78rem; color: var(--gray); text-align: center;">
+          Kamu bisa merekam langsung lewat tombol di atas, atau merekam di aplikasi perekam suara bawaan HP/Laptop lalu mengunggahnya ke kotak di bawah.
         </p>
       </div>
     </section>
 
+    <!-- Bagian 2: Audio Player Before vs After -->
+    <section class="card">
+      <div class="card-header">
+        <h3 class="card-title">🎧 Bagian 2: Komparasi Audio Asli vs Hasil Suntingan KA (Instruksi b & c)</h3>
+        <span class="badge badge-teal">Player & Visualizer</span>
+      </div>
+
+      <div class="audio-compare-grid">
+        <!-- Audio Asli Box -->
+        <div class="audio-card" id="boxAudioBefore">
+          <div class="audio-card-header">
+            <span class="badge badge-blue">Audio ASLI (Sebelum KA)</span>
+            <span id="badgeBeforeInfo" style="font-size: 0.75rem; color: var(--gray);">Belum ada file</span>
+          </div>
+          <canvas id="canvasBefore" class="wave-canvas"></canvas>
+          <div class="audio-player-wrapper">
+            <audio id="audioBefore" controls></audio>
+          </div>
+          <div style="position: relative; margin-top: 8px;">
+            <input type="file" id="fileAudioBefore" accept="audio/*,.mp3,.wav,.m4a,.aac" style="display:none;" onchange="loadAudioFile(this, 'audioBefore', 'badgeBeforeInfo', 'canvasBefore', 'boxAudioBefore')">
+            <button class="btn btn-outline-dark btn-sm" onclick="document.getElementById('fileAudioBefore').click()">📁 Pilih File Audio Asli</button>
+          </div>
+        </div>
+
+        <!-- Audio Hasil KA Box -->
+        <div class="audio-card" id="boxAudioAfter">
+          <div class="audio-card-header">
+            <span class="badge badge-teal">Audio HASIL SUNTINGAN KA</span>
+            <span id="badgeAfterInfo" style="font-size: 0.75rem; color: var(--gray);">Belum ada file</span>
+          </div>
+          <canvas id="canvasAfter" class="wave-canvas"></canvas>
+          <div class="audio-player-wrapper">
+            <audio id="audioAfter" controls></audio>
+          </div>
+          <div style="position: relative; margin-top: 8px;">
+            <input type="file" id="fileAudioAfter" accept="audio/*,.mp3,.wav,.m4a,.aac" style="display:none;" onchange="loadAudioFile(this, 'audioAfter', 'badgeAfterInfo', 'canvasAfter', 'boxAudioAfter')">
+            <button class="btn btn-primary btn-sm" onclick="document.getElementById('fileAudioAfter').click()">✨ Upload Hasil Olahan KA</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabel Komparasi Kualitas -->
+      <table class="table-compare" style="margin-top: 20px;">
+        <thead>
+          <tr>
+            <th style="width: 25%;">Parameter Suara</th>
+            <th style="width: 35%;">Audio Asli (Mentah)</th>
+            <th style="width: 40%;">Audio Hasil Suntingan KA</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Kebisingan Latar (Noise)</strong></td>
+            <td>
+              <select id="pNoiseBefore" class="form-control" onchange="saveAuto()">
+                <option value="Sangat Terdengar">Sangat Terdengar (Desis/Bising)</option>
+                <option value="Cukup Terdengar">Cukup Terdengar</option>
+                <option value="Bersih / Hening">Bersih / Hening</option>
+              </select>
+            </td>
+            <td>
+              <select id="pNoiseAfter" class="form-control" onchange="saveAuto()">
+                <option value="Hilang Total (Standar Studio)">Hilang Total (Standar Studio)</option>
+                <option value="Berkurang Sangat Signifikan">Berkurang Sangat Signifikan</option>
+                <option value="Masih Ada Sedikit Desis">Masih Ada Sedikit Desis</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Gema Ruangan (Reverb)</strong></td>
+            <td>
+              <select id="pEchoBefore" class="form-control" onchange="saveAuto()">
+                <option value="Ruangan Sangat Bergema">Ruangan Sangat Bergema</option>
+                <option value="Sedikit Gema">Sedikit Gema</option>
+                <option value="Suara Kering (Dry)">Suara Kering (Dry)</option>
+              </select>
+            </td>
+            <td>
+              <select id="pEchoAfter" class="form-control" onchange="saveAuto()">
+                <option value="Gema Hilang Total (Intim Studio)">Gema Hilang Total (Intim Studio)</option>
+                <option value="Masih Ada Sedikit Gema">Masih Ada Sedikit Gema</option>
+                <option value="Tidak Ada Perubahan">Tidak Ada Perubahan</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Kejelasan Vokal (Clarity)</strong></td>
+            <td>
+              <select id="pClarityBefore" class="form-control" onchange="saveAuto()">
+                <option value="Vokal Mendem / Jauh">Vokal Mendem / Jauh</option>
+                <option value="Vokal Cukup Jelas">Vokal Cukup Jelas</option>
+                <option value="Vokal Sangat Jelas">Vokal Sangat Jelas</option>
+              </select>
+            </td>
+            <td>
+              <select id="pClarityAfter" class="form-control" onchange="saveAuto()">
+                <option value="Vokal Sangat Jernih, Tebal & Fokus">Vokal Sangat Jernih, Tebal & Fokus</option>
+                <option value="Vokal Terlalu Tajam / Artifisial">Vokal Terlalu Tajam / Artifisial</option>
+                <option value="Cukup Jelas">Cukup Jelas</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Kealamian Suara (Naturalness)</strong></td>
+            <td>
+              <select id="pNatBefore" class="form-control" onchange="saveAuto()">
+                <option value="100% Suara Asli Alami">100% Suara Asli Alami</option>
+                <option value="Agak Pecah / Distorsi">Agak Pecah / Distorsi</option>
+              </select>
+            </td>
+            <td>
+              <select id="pNatAfter" class="form-control" onchange="saveAuto()">
+                <option value="Sangat Alami Seperti Mic Mahal">Sangat Alami Seperti Mic Mahal</option>
+                <option value="Sedikit Robotik / Muffled">Sedikit Robotik / Muffled</option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="form-group" style="margin-top: 16px;">
+        <label class="form-label" for="taskAudioUrl">🔗 Tautan / Link File Audio (Google Drive / LMS)</label>
+        <input type="url" id="taskAudioUrl" class="form-control" placeholder="https://drive.google.com/... atau tautan LMS sekolah" oninput="saveAuto()">
+      </div>
+    </section>
+
+    <!-- Bagian 3: Lembar Refleksi Singkat (Instruksi d) -->
+    <section class="card">
+      <div class="card-header">
+        <h3 class="card-title">💡 Bagian 3: Lembar Refleksi Singkat (Instruksi d)</h3>
+        <span class="badge badge-teal">Refleksi Kritis</span>
+      </div>
+
+      <div class="reflection-item">
+        <h4>1. Apakah kualitas suara rekamanmu meningkat setelah disunting menggunakan aplikasi berbasis KA? Jelaskan bukti dan perbedaannya!</h4>
+        <div class="reflection-hint">Tips: Uraikan apa yang terjadi pada suara bising kipas angin, gema kamar, dan kejelasan intonasi bicaramu.</div>
+        <textarea id="ref1" class="form-control" rows="3" placeholder="Tuliskan refleksimu di sini..." oninput="saveAuto()"></textarea>
+      </div>
+
+      <div class="reflection-item">
+        <h4>2. Apakah proses penyuntingan dengan aplikasi KA tersebut mudah dilakukan?</h4>
+        <div class="reflection-hint">Tips: Ceritakan kemudahannya (misal: cukup sekali upload langsung bersih otomatis) dibanding jika harus mengedit frekuensi equalizer secara manual.</div>
+        <textarea id="ref2" class="form-control" rows="3" placeholder="Tuliskan pengalaman kemudahan menggunakan alat KA di sini..." oninput="saveAuto()"></textarea>
+      </div>
+
+      <div class="reflection-item">
+        <h4>3. Pertanyaan Analisis Tambahan: Apakah kamu menemukan suara yang terdengar sedikit robotik atau kata yang terpotong? Mengapa hal itu bisa terjadi pada model AI?</h4>
+        <div class="reflection-hint">Tips: Model AI memisahkan frekuensi dengan prediksi matematika, terkadang konsonan lemah seperti 's', 'f', 't' salah dianggap sebagai desis noise.</div>
+        <textarea id="ref3" class="form-control" rows="3" placeholder="Tuliskan analisis kritismu di sini..." oninput="saveAuto()"></textarea>
+      </div>
+    </section>
+
+    <!-- Bagian 4: Pengiriman Tugas ke Google Spreadsheet Guru -->
+    <section class="card submit-card" id="sectionSubmit">
+      <div class="card-header">
+        <h3 class="card-title">🚀 Bagian 4: Pengiriman Tugas ke Google Spreadsheet Guru</h3>
+        <span class="badge badge-teal">Otomatisasi Real-Time</span>
+      </div>
+
+      <div id="submitStatusAlert"></div>
+
+      <div class="submit-action-box">
+        <div style="max-width: 650px;">
+          <h4 style="font-size: 1.15rem; color: var(--primary-dark); margin-bottom: 6px;">
+            Siap Mengumpulkan Hasil Pengerjaan LKPD Audio?
+          </h4>
+          <p style="font-size: 0.88rem; color: var(--gray);">
+            Pastikan seluruh data identitas, rekaman suara, analisis perbandingan, dan jawaban refleksi telah diisi dengan lengkap. Ketika kamu mengklik tombol di bawah, seluruh hasil kerja akan otomatis terkirim dan tercatat di Google Spreadsheet guru.
+          </p>
+        </div>
+
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; align-items: center;">
+          <button class="btn btn-success btn-lg" id="btnSubmitGoogle" onclick="submitToGoogleSheets()">
+            <span id="btnSubmitIcon">🚀</span>
+            <span id="btnSubmitText">Kirim Tugas ke Google Spreadsheet</span>
+          </button>
+        </div>
+
+        <div id="submitReceipt" style="display: none; width: 100%; margin-top: 10px;"></div>
+      </div>
+    </section>
 
   </main>
 
-  <!-- Notifikasi Toast -->
   <div id="toast">✅ Perubahan tersimpan otomatis</div>
 
   <script>
-    // Inisialisasi Canvas Simulasi AI Eraser
-    const canvas = document.getElementById('eraserCanvas');
-    const ctx = canvas.getContext('2d');
-    let isDrawing = false;
+    // Audio Recorder Web API
+    let mediaRecorder;
+    let audioChunks = [];
+    let recordedBlob = null;
+    let timerInterval = null;
+    let secondsElapsed = 0;
 
-    function resetSimCanvas() {
-      // Latar belakang taman sekolah (gradien langit dan rumput)
-      ctx.fillStyle = '#bae6fd';
-      ctx.fillRect(0, 0, 500, 160);
-      ctx.fillStyle = '#4ade80';
-      ctx.fillRect(0, 160, 500, 100);
+    async function toggleRecord() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+        audioChunks = [];
 
-      // Gambar gedung sekolah sederhana
-      ctx.fillStyle = '#f87171';
-      ctx.fillRect(60, 60, 160, 100);
-      ctx.fillStyle = '#fef08a';
-      ctx.fillRect(80, 80, 40, 40);
-      ctx.fillRect(160, 80, 40, 40);
+        mediaRecorder.ondataavailable = event => {
+          audioChunks.push(event.data);
+        };
 
-      // Gambar "Objek Pengganggu" (Kotak Sampah Merah) yang perlu dihapus
-      ctx.fillStyle = '#dc2626';
-      ctx.fillRect(320, 170, 50, 60);
-      ctx.fillStyle = '#ffffff';
-      ctx.font = '10px sans-serif';
-      ctx.fillText('SAMPAH', 325, 205);
-    }
-    resetSimCanvas();
+        mediaRecorder.onstop = () => {
+          recordedBlob = new Blob(audioChunks, { type: 'audio/mp3' });
+          const audioUrl = URL.createObjectURL(recordedBlob);
+          const player = document.getElementById('audioBefore');
+          player.src = audioUrl;
+          document.getElementById('badgeBeforeInfo').innerText = `Rekaman Langsung (${secondsElapsed}s)`;
+          document.getElementById('boxAudioBefore').classList.add('has-file');
+          document.getElementById('btnDownloadRec').style.display = 'inline-flex';
+          drawStaticWaveform('canvasBefore');
+          showToast('🎙️ Rekaman suara tersimpan di player Audio Asli!');
+          updateProgress();
+        };
 
-    function getMousePos(e) {
-      const rect = canvas.getBoundingClientRect();
-      const scaleX = canvas.width / rect.width;
-      const scaleY = canvas.height / rect.height;
-      const clientX = e.clientX || (e.touches && e.touches[0].clientX);
-      const clientY = e.clientY || (e.touches && e.touches[0].clientY);
-      return {
-        x: (clientX - rect.left) * scaleX,
-        y: (clientY - rect.top) * scaleY
-      };
-    }
+        mediaRecorder.start();
+        secondsElapsed = 0;
+        document.getElementById('recTimer').innerText = '00:00';
+        document.getElementById('recIndicator').classList.add('recording');
+        document.getElementById('btnRecord').disabled = true;
+        document.getElementById('btnStop').disabled = false;
 
-    function startDraw(e) {
-      isDrawing = true;
-      drawMask(e);
-    }
-    function endDraw() {
-      isDrawing = false;
-      ctx.beginPath();
-    }
-    function drawMask(e) {
-      if (!isDrawing) return;
-      const pos = getMousePos(e);
-      ctx.lineWidth = 26;
-      ctx.lineCap = 'round';
-      ctx.strokeStyle = 'rgba(239, 68, 68, 0.6)'; // Masking kuas merah transparan
-      ctx.lineTo(pos.x, pos.y);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(pos.x, pos.y);
+        timerInterval = setInterval(() => {
+          secondsElapsed++;
+          const mins = String(Math.floor(secondsElapsed / 60)).padStart(2, '0');
+          const secs = String(secondsElapsed % 60).padStart(2, '0');
+          document.getElementById('recTimer').innerText = `${mins}:${secs}`;
+        }, 1000);
+
+      } catch (err) {
+        alert('Gagal mengakses mikrofon: ' + err.message + '\nPastikan izin mikrofon telah diberikan di browsermu.');
+      }
     }
 
-    canvas.addEventListener('mousedown', startDraw);
-    canvas.addEventListener('mousemove', drawMask);
-    window.addEventListener('mouseup', endDraw);
-    canvas.addEventListener('touchstart', (e) => { e.preventDefault(); startDraw(e); });
-    canvas.addEventListener('touchmove', (e) => { e.preventDefault(); drawMask(e); });
-    canvas.addEventListener('touchend', endDraw);
-
-    function runAiInpainting() {
-      showToast('🤖 AI sedang menganalisis piksel & menghapus objek...');
-      setTimeout(() => {
-        // AI inpainting: menutup area sampah dengan rumput mulus
-        ctx.fillStyle = '#4ade80';
-        ctx.fillRect(310, 160, 80, 80);
-
-        // Tambahkan tekstur rumput alami
-        ctx.fillStyle = '#22c55e';
-        for (let i = 0; i < 20; i++) {
-          ctx.fillRect(315 + (i * 3.5), 180 + (i % 5 * 8), 3, 10);
-        }
-        showToast('✨ Objek berhasil dihilangkan dengan AI!');
-      }, 700);
+    function stopRecord() {
+      if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+        mediaRecorder.stop();
+        clearInterval(timerInterval);
+        document.getElementById('recIndicator').classList.remove('recording');
+        document.getElementById('btnRecord').disabled = false;
+        document.getElementById('btnStop').disabled = true;
+      }
     }
 
-    // Preview File Upload (Before vs After) - Dioptimalkan untuk iPhone iOS & Desktop
-    function previewFile(input, targetId, boxId) {
+    function downloadRecording() {
+      if (!recordedBlob) return;
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(recordedBlob);
+      a.download = `Rekaman_Asli_${document.getElementById('studentName').value || 'Siswa'}.mp3`;
+      a.click();
+    }
+
+    // Audio File Loader
+    function loadAudioFile(input, playerId, badgeId, canvasId, boxId) {
       const file = input.files && input.files[0];
       if (!file) return;
 
-      const target = document.getElementById(targetId);
-      const box = document.getElementById(boxId);
-      target.innerHTML = '';
-
-      const isImage = file.type.startsWith('image/') || /\.(jpe?g|png|gif|webp|heic|heif|bmp|svg)$/i.test(file.name);
-      const isVideo = file.type.startsWith('video/') || /\.(mp4|mov|webm|m4v|3gp|quicktime)$/i.test(file.name);
-      const mediaUrl = URL.createObjectURL(file);
-
-      if (isImage) {
-        const img = document.createElement('img');
-        img.src = mediaUrl;
-        img.className = 'preview-media';
-        img.alt = file.name;
-        target.appendChild(img);
-      } else if (isVideo) {
-        const video = document.createElement('video');
-        video.src = mediaUrl;
-        video.className = 'preview-media';
-        video.controls = true;
-        video.setAttribute('playsinline', '');
-        video.setAttribute('webkit-playsinline', '');
-        video.setAttribute('preload', 'metadata');
-        target.appendChild(video);
-      } else {
-        const div = document.createElement('div');
-        div.style.padding = '14px';
-        div.innerHTML = `📄 <strong>${file.name}</strong>`;
-        target.appendChild(div);
-      }
-
-      // Metadata file
-      const meta = document.createElement('div');
-      meta.className = 'file-meta-badge';
-      meta.innerText = `${file.name} (${(file.size / (1024 * 1024)).toFixed(1)} MB)`;
-      target.appendChild(meta);
-
-      // Tombol Ganti / Hapus
-      const clearBtn = document.createElement('button');
-      clearBtn.type = 'button';
-      clearBtn.className = 'btn btn-outline-dark btn-sm btn-clear-media';
-      clearBtn.innerText = '🔄 Ganti / Hapus File';
-      clearBtn.onclick = function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        input.value = '';
-        box.classList.remove('has-file');
-        const defaultText = boxId === 'boxBefore' ? '📁 Ketuk di sini untuk upload foto/video asli' : '✨ Ketuk di sini untuk upload hasil editan KA';
-        target.innerHTML = `<p style="margin-top: 14px; font-size: 0.85rem; color: var(--gray);">${defaultText}</p><span style="font-size: 0.75rem; color: #94a3b8; display: block; margin-top: 4px;">(Pustaka Foto / Kamera / File)</span>`;
-      };
-      target.appendChild(clearBtn);
-
-      box.classList.add('has-file');
-      showToast('📁 Media berhasil dimuat di browser');
+      const player = document.getElementById(playerId);
+      player.src = URL.createObjectURL(file);
+      document.getElementById(badgeId).innerText = `${file.name} (${(file.size / (1024*1024)).toFixed(1)} MB)`;
+      document.getElementById(boxId).classList.add('has-file');
+      drawStaticWaveform(canvasId);
+      showToast('🎵 File audio berhasil dimuat!');
       updateProgress();
     }
 
-    // Dynamic AI Features Table
-    function addAiRow() {
-      const tbody = document.getElementById('aiTableBody');
-      const rowCount = tbody.rows.length + 1;
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td style="text-align: center;">${rowCount}</td>
-        <td><input type="text" class="form-control" placeholder="Fitur KA (misal: AI Enhancer)" oninput="saveAuto()"></td>
-        <td><input type="text" class="form-control" placeholder="Prompt / Pengaturan" oninput="saveAuto()"></td>
-        <td><input type="text" class="form-control" placeholder="Hasil perubahan" oninput="saveAuto()"></td>
-        <td><button class="btn btn-danger btn-sm" onclick="removeAiRow(this)">✕</button></td>
-      `;
-      tbody.appendChild(tr);
-      saveAuto();
-    }
+    // Dummy Canvas Waveform Generator
+    function drawStaticWaveform(canvasId) {
+      const canvas = document.getElementById(canvasId);
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#0d9488';
 
-    function removeAiRow(btn) {
-      const tbody = document.getElementById('aiTableBody');
-      if (tbody.rows.length <= 1) {
-        alert('Minimal harus ada 1 catatan fitur KA!');
-        return;
+      const bars = 40;
+      const width = canvas.width / bars;
+      for (let i = 0; i < bars; i++) {
+        const height = Math.random() * (canvas.height - 10) + 5;
+        const y = (canvas.height - height) / 2;
+        ctx.fillRect(i * width, y, width - 2, height);
       }
-      btn.closest('tr').remove();
-      // Re-number
-      Array.from(tbody.rows).forEach((row, idx) => {
-        row.cells[0].innerText = idx + 1;
-      });
-      saveAuto();
     }
 
-    // Update Checklist Progress
+    // Checklist Progress
     function updateProgress() {
       const a = document.getElementById('stepA').checked;
       const b = document.getElementById('stepB').checked;
@@ -992,7 +1034,7 @@
       saveAuto();
     }
 
-    // Toast Function
+    // Toast
     function showToast(msg) {
       const toast = document.getElementById('toast');
       toast.innerText = msg;
@@ -1000,30 +1042,37 @@
       setTimeout(() => toast.classList.remove('show'), 2200);
     }
 
-    // Auto Save to localStorage
-    const STORAGE_KEY = 'LKPD_AKTIVITAS_1_3_DATA';
+    // Storage
+    const STORAGE_KEY = 'LKPD_AUDIO_1_4_DATA';
 
     function saveAuto() {
       const data = {
         name: document.getElementById('studentName').value,
         class: document.getElementById('studentClass').value,
         school: document.getElementById('studentSchool').value,
-        toolKA: document.querySelector('input[name="toolKA"]:checked')?.value || 'Canva AI',
-        docType: document.getElementById('docType').value,
-        docActivity: document.getElementById('docActivity').value,
-        docIssue: document.getElementById('docIssue').value,
-        taskUrl: document.getElementById('taskUrl').value,
+        toolKA: document.getElementById('toolKA').value,
+        scriptType: document.getElementById('scriptType').value,
+        scriptTitle: document.getElementById('scriptTitle').value,
+        scriptContent: document.getElementById('scriptContent').value,
+        pNoiseBefore: document.getElementById('pNoiseBefore').value,
+        pNoiseAfter: document.getElementById('pNoiseAfter').value,
+        pEchoBefore: document.getElementById('pEchoBefore').value,
+        pEchoAfter: document.getElementById('pEchoAfter').value,
+        pClarityBefore: document.getElementById('pClarityBefore').value,
+        pClarityAfter: document.getElementById('pClarityAfter').value,
+        pNatBefore: document.getElementById('pNatBefore').value,
+        pNatAfter: document.getElementById('pNatAfter').value,
+        taskAudioUrl: document.getElementById('taskAudioUrl').value,
         ref1: document.getElementById('ref1').value,
         ref2: document.getElementById('ref2').value,
         ref3: document.getElementById('ref3').value,
-        ref4: document.getElementById('ref4').value,
         stepA: document.getElementById('stepA').checked,
         stepB: document.getElementById('stepB').checked,
         stepC: document.getElementById('stepC').checked,
         stepD: document.getElementById('stepD').checked,
       };
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      showToast('💾 Jawaban tersimpan otomatis');
+      showToast('💾 Isian tersimpan otomatis');
     }
 
     function loadSaved() {
@@ -1034,14 +1083,22 @@
         if (data.name) document.getElementById('studentName').value = data.name;
         if (data.class) document.getElementById('studentClass').value = data.class;
         if (data.school) document.getElementById('studentSchool').value = data.school;
-        if (data.docType) document.getElementById('docType').value = data.docType;
-        if (data.docActivity) document.getElementById('docActivity').value = data.docActivity;
-        if (data.docIssue) document.getElementById('docIssue').value = data.docIssue;
-        if (data.taskUrl) document.getElementById('taskUrl').value = data.taskUrl;
+        if (data.toolKA) document.getElementById('toolKA').value = data.toolKA;
+        if (data.scriptType) document.getElementById('scriptType').value = data.scriptType;
+        if (data.scriptTitle) document.getElementById('scriptTitle').value = data.scriptTitle;
+        if (data.scriptContent) document.getElementById('scriptContent').value = data.scriptContent;
+        if (data.pNoiseBefore) document.getElementById('pNoiseBefore').value = data.pNoiseBefore;
+        if (data.pNoiseAfter) document.getElementById('pNoiseAfter').value = data.pNoiseAfter;
+        if (data.pEchoBefore) document.getElementById('pEchoBefore').value = data.pEchoBefore;
+        if (data.pEchoAfter) document.getElementById('pEchoAfter').value = data.pEchoAfter;
+        if (data.pClarityBefore) document.getElementById('pClarityBefore').value = data.pClarityBefore;
+        if (data.pClarityAfter) document.getElementById('pClarityAfter').value = data.pClarityAfter;
+        if (data.pNatBefore) document.getElementById('pNatBefore').value = data.pNatBefore;
+        if (data.pNatAfter) document.getElementById('pNatAfter').value = data.pNatAfter;
+        if (data.taskAudioUrl) document.getElementById('taskAudioUrl').value = data.taskAudioUrl;
         if (data.ref1) document.getElementById('ref1').value = data.ref1;
         if (data.ref2) document.getElementById('ref2').value = data.ref2;
         if (data.ref3) document.getElementById('ref3').value = data.ref3;
-        if (data.ref4) document.getElementById('ref4').value = data.ref4;
         if (data.stepA) document.getElementById('stepA').checked = data.stepA;
         if (data.stepB) document.getElementById('stepB').checked = data.stepB;
         if (data.stepC) document.getElementById('stepC').checked = data.stepC;
@@ -1053,7 +1110,7 @@
     }
 
     function resetForm() {
-      if (confirm('Apakah kamu yakin ingin mengosongkan seluruh isian LKPD ini?')) {
+      if (confirm('Apakah kamu yakin ingin mengosongkan seluruh isian LKPD Audio ini?')) {
         localStorage.removeItem(STORAGE_KEY);
         location.reload();
       }
@@ -1068,21 +1125,144 @@
       const blob = new Blob([saved], { type: 'application/json' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
-      a.download = `LKPD_Aktivitas1.3_${document.getElementById('studentName').value || 'Siswa'}.json`;
+      a.download = `LKPD_Audio_Aktivitas1.4_${document.getElementById('studentName').value || 'Siswa'}.json`;
       a.click();
     }
 
-    function openLink() {
-      const url = document.getElementById('taskUrl').value;
-      if (!url) {
-        alert('Tautan pengumpulan tugas belum diisi.');
+    // ==========================================
+    // INTEGRASI GOOGLE APPS SCRIPT (METODE 1)
+    // ==========================================
+    // URL Webhook Google Apps Script Resmi (Terkunci Permanen)
+    const GOOGLE_SCRIPT_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbw9Tl_meEez1EuKQkXTvBcCh1pvm3ncp0P4CbZttYdKbjNpWZ3QLefD9os4pFg77O671A/exec';
+    const LAST_SUBMIT_KEY = 'LKPD_AUDIO_LAST_SUBMISSION';
+
+    function checkWebhookStatus() {
+      const statusAlert = document.getElementById('submitStatusAlert');
+      if (!statusAlert) return;
+      statusAlert.innerHTML = `
+        <div class="alert alert-info" style="align-items: center;">
+          <span style="font-size:1.2rem;">🟢</span>
+          <div>
+            <strong>Terhubung ke Google Spreadsheet Guru:</strong> Siap menerima dan merekap kiriman tugas siswa secara otomatis.
+          </div>
+        </div>
+      `;
+      checkLastSubmissionReceipt();
+    }
+
+    function checkLastSubmissionReceipt() {
+      const last = localStorage.getItem(LAST_SUBMIT_KEY);
+      const receiptEl = document.getElementById('submitReceipt');
+      if (!receiptEl) return;
+      if (last) {
+        try {
+          const info = JSON.parse(last);
+          receiptEl.style.display = 'block';
+          receiptEl.innerHTML = `
+            <div class="alert alert-success" style="margin-bottom:0; text-align:left;">
+              <span style="font-size:1.2rem;">🎉</span>
+              <div>
+                <strong>Tugas Terkirim Sebelumnya:</strong> Berhasil dikirim atas nama <strong>${info.student || 'Siswa'}</strong> pada <strong>${info.timestamp}</strong>.<br>
+                <small style="opacity:0.85;">Catatan: Jika siswa mengirim ulang, data terbaru akan ditambahkan sebagai baris baru di Google Spreadsheet guru.</small>
+              </div>
+            </div>
+          `;
+        } catch(e) {}
+      }
+    }
+
+    async function submitToGoogleSheets() {
+      const name = document.getElementById('studentName').value.trim();
+      const studentClass = document.getElementById('studentClass').value.trim();
+      if (!name || !studentClass) {
+        alert('⚠️ Harap lengkapi Nama Lengkap dan Kelas/No. Presensi terlebih dahulu di Bagian Identitas!');
+        document.getElementById('studentName').focus();
         return;
       }
-      window.open(url, '_blank');
+
+      // Pastikan autosave terpanggil
+      saveAuto();
+
+      const a = document.getElementById('stepA').checked;
+      const b = document.getElementById('stepB').checked;
+      const c = document.getElementById('stepC').checked;
+      const d = document.getElementById('stepD').checked;
+      const totalSteps = [a, b, c, d].filter(Boolean).length;
+
+      const payload = {
+        name: name,
+        class: studentClass,
+        school: document.getElementById('studentSchool').value.trim(),
+        toolKA: document.getElementById('toolKA').value,
+        scriptType: document.getElementById('scriptType').value,
+        scriptTitle: document.getElementById('scriptTitle').value.trim(),
+        scriptContent: document.getElementById('scriptContent').value.trim(),
+        pNoiseBefore: document.getElementById('pNoiseBefore').value,
+        pNoiseAfter: document.getElementById('pNoiseAfter').value,
+        pEchoBefore: document.getElementById('pEchoBefore').value,
+        pEchoAfter: document.getElementById('pEchoAfter').value,
+        pClarityBefore: document.getElementById('pClarityBefore').value,
+        pClarityAfter: document.getElementById('pClarityAfter').value,
+        pNatBefore: document.getElementById('pNatBefore').value,
+        pNatAfter: document.getElementById('pNatAfter').value,
+        taskAudioUrl: document.getElementById('taskAudioUrl').value.trim(),
+        ref1: document.getElementById('ref1').value.trim(),
+        ref2: document.getElementById('ref2').value.trim(),
+        ref3: document.getElementById('ref3').value.trim(),
+        progressSummary: `${totalSteps}/4 Langkah Selesai`
+      };
+
+      const btn = document.getElementById('btnSubmitGoogle');
+      const icon = document.getElementById('btnSubmitIcon');
+      const text = document.getElementById('btnSubmitText');
+
+      // Set Status Loading
+      btn.disabled = true;
+      icon.innerHTML = '<span class="spinner"></span>';
+      text.innerText = 'Sedang Mengirim ke Google Sheets...';
+
+      try {
+        await fetch(GOOGLE_SCRIPT_WEBHOOK_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          cache: 'no-cache',
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        // Sukses terkirim!
+        const now = new Date().toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' });
+        localStorage.setItem(LAST_SUBMIT_KEY, JSON.stringify({
+          student: name,
+          timestamp: now
+        }));
+
+        btn.disabled = false;
+        icon.innerText = '✅';
+        text.innerText = 'Tugas Berhasil Terkirim!';
+        showToast('🎉 Tugas berhasil dikirim ke Google Spreadsheet guru!');
+
+        checkLastSubmissionReceipt();
+
+        setTimeout(() => {
+          icon.innerText = '🚀';
+          text.innerText = 'Kirim Ulang / Perbarui Kiriman';
+        }, 3500);
+
+      } catch (err) {
+        console.error('Error submitting LKPD:', err);
+        btn.disabled = false;
+        icon.innerText = '⚠️';
+        text.innerText = 'Coba Kirim Lagi';
+        alert('Terjadi kendala saat mengirim data:\n' + err.message + '\n\nPastikan koneksi internet aktif atau simpan LKPD dalam format PDF terlebih dahulu.');
+      }
     }
 
     window.onload = function() {
       loadSaved();
+      checkWebhookStatus();
     };
   </script>
 </body>
